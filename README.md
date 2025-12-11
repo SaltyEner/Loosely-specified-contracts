@@ -67,6 +67,8 @@ For contracts requiring initialization (e.g., constructors with arguments), the 
 
 You can interact with these contracts directly in your browser using Remix IDE, without installing anything.
 
+[**Open in Remix**](https://remix.ethereum.org/#url=https://github.com/SaltyEner/Loosely-specified-contracts/blob/master/contracts/core/ContractDeployer.sol)
+
 ## 🧪 Try it Yourself (Demo Scenario)
 
 Follow these steps to test the runtime deployment using Remix IDE:
