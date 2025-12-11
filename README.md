@@ -62,3 +62,6 @@ if (selector == this.A.selector) { ... }
 ### 3. Logic Injection & Parameter Encoding
 
 For contracts requiring initialization (e.g., constructors with arguments), the `ABICoderUtils` prepares the payload. The system allows you to encode parameters (like `uint256` or `strings`) and concatenate them with the target contract's bytecode before injection. This ensures the new contract is initialized correctly with dynamic data known only at runtime.
+
+🎓 Academic Context
+Type: University Research Project Course: MSc in Computer Science (Class LM-18) Institution: University of Camerino Topic: Blockchain Engineering & Loosely Specified Processes
