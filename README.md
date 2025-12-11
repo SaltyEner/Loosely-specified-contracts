@@ -63,6 +63,33 @@ if (selector == this.A.selector) { ... }
 
 For contracts requiring initialization (e.g., constructors with arguments), the `ABICoderUtils` prepares the payload. The system allows you to encode parameters (like `uint256` or `strings`) and concatenate them with the target contract's bytecode before injection. This ensures the new contract is initialized correctly with dynamic data known only at runtime.
 
+## 🚀 Live Demo
+
+You can interact with these contracts directly in your browser using Remix IDE, without installing anything.
+
+[**Open in Remix**](https://remix.ethereum.org/#url=https://github.com/SaltyEner/Loosely-specified-contracts/blob/master/contracts/core/ContractDeployer.sol)
+
+## 🧪 Try it Yourself (Demo Scenario)
+
+Follow these steps to test the runtime deployment using Remix IDE:
+
+1.  **Open Remix IDE**: Go to [remix.ethereum.org](https://remix.ethereum.org).
+2.  **Load the Framework**: Import `ContractDeployer.sol` and `SimpleAdder.sol` into the workspace.
+3.  **Get Bytecode**:
+    * Open `SimpleAdder.sol` and compile it.
+    * In the "Compilation Details" button (or at the bottom of the compiler tab), copy the **Bytecode** object. Ensure you copy the hex string starting with `6080...`.
+4.  **Deploy the Engine**:
+    * Go to the "Deploy & Run" tab.
+    * Select **Remix VM (Cancun)** as the Environment.
+    * Deploy `ContractDeployer.sol`.
+5.  **Runtime Injection**:
+    * Expand the deployed contract instance.
+    * Paste the `SimpleAdder` bytecode (prefixed with `0x`) into the `deployContract` input field.
+    * Click **transact**.
+6.  **Verify**:
+    * Check the console logs for the `ContractDeployed` event to find the new address.
+    * You can now load the logic using the "At Address" feature to confirm the deployment.
+
 ## 🎓 Academic Context
 
 * **Type**: University Research Project
