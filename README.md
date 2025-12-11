@@ -28,12 +28,37 @@ An experimental architecture developed to address the rigidity of traditional Et
 
 ## 🛠️ How it Works
 
+The framework operates through a three-step pipeline designed to handle unspecified processes at runtime, leveraging low-level EVM manipulations:
+
 ### 1. Dynamic Deployment
-The `ContractDeployer` takes the compiled bytecode of a target contract (e.g., `SimpleAdder`) and injects it into the blockchain:
+
+The `ContractDeployer` bypasses standard Solidity deployment tools to instantiate contracts programmatically. It accepts raw bytecode and uses the `create` assembly opcode to deploy a new contract instance on the Ethereum network immediately:
 
 ```solidity
 // From ContractDeployer.sol
 assembly {
+    // create(value, offset, length)
+    // Deploys a new contract from memory without external transaction tools
     deployedAddress := create(0, add(bytecode, 0x20), mload(bytecode))
 }
 ```
+
+### 2. Runtime Routing (Selector Extraction)
+
+Instead of relying on hardcoded function calls, the system parses incoming raw byte streams. The `DynamicSelector` uses Assembly to manually extract the 4-byte function signature (selector) directly from the calldata memory pointer:
+
+```solidity
+// From DynamicSelector.sol
+bytes4 selector;
+assembly {
+    // Load the first 32 bytes starting after the length prefix to isolate the selector
+    selector := mload(add(data, 0x20))
+}
+
+// Route execution dynamically based on the extracted selector
+if (selector == this.A.selector) { ... }
+```
+
+### 3. Logic Injection & Parameter Encoding
+
+For contracts requiring initialization (e.g., constructors with arguments), the `ABICoderUtils` prepares the payload. The system allows you to encode parameters (like `uint256` or `strings`) and concatenate them with the target contract's bytecode before injection. This ensures the new contract is initialized correctly with dynamic data known only at runtime.
